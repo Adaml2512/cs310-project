@@ -1,25 +1,36 @@
 import { useState } from 'react'
+import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router'
 
+import ClassPage from './pages/classes';
 import './App.css'
 
 function App() {
+  const navigate = useNavigate(); // useNavigate returns a function to programatically navigate
+
+  const selectSchool = (school: string) => {
+    navigate('/classes', { state: { school } }); // Pass school directly into navigate
+  };
+  
   return (
-    <>
+    <div>
+      <h1>Select Your School</h1>
       <div>
-        <h1>
-         Select Your School
-       </h1>
-       <div>
-          <button className="school">
-             McCormick
-          </button>
-          <button className="school">
-            Weinberg
-          </button>
-       </div>
+        <button className="school" onClick={() => selectSchool('McCormick')}>
+          McCormick
+        </button>
+        <button className="school" onClick={() => selectSchool('Weinberg')}>
+          Weinberg
+        </button>
       </div>
-    </>
+    </div>
   )
 }
 
-export default App
+// router should wrap the whole app
+export default function AppWrapper() {
+  return (
+    <Router>
+      <App />
+    </Router>
+  )
+}
