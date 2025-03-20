@@ -1,27 +1,17 @@
 import { useState } from 'react'
-import { BrowserRouter as Router, Routes, Route, useNavigate } from 'react-router'
+import { BrowserRouter as Router, Routes, Route } from 'react-router'
 
+import HomePage from './pages/Home';
 import ClassPage from './pages/classes';
 import './App.css'
 
 function App() {
-  const navigate = useNavigate(); // useNavigate returns a function to programatically navigate
-
-  const selectSchool = (school: string) => {
-    navigate('/classes', { state: { school } }); // Pass school directly into navigate
-  };
-  
   return (
     <div>
-      <h1>Select Your School</h1>
-      <div>
-        <button className="school" onClick={() => selectSchool('McCormick')}>
-          McCormick
-        </button>
-        <button className="school" onClick={() => selectSchool('Weinberg')}>
-          Weinberg
-        </button>
-      </div>
+      <Routes>
+        <Route path="/" element={ <HomePage /> } />
+        <Route path="/classes" element={<ClassPage />} />
+      </Routes>
     </div>
   )
 }
