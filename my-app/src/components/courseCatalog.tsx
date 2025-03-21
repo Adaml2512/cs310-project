@@ -33,15 +33,15 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
 
     return (
       <div className="flex-1 h-screen text-white p-6 border-l border-gray-700">
-        <h2 className="text-xl font-semibold mb-4">Course Catalog</h2>
+        <h2 className="text-2xl font-semibold mb-2">Course Catalog</h2>
+        <label className="mb-2">Add your classes from below: </label>
 
-        {/* Search Input */}
         <input
           type="text"
           placeholder="Search for a class..."
           value={search}
           onChange={this.handleSearch}
-          className="w-full p-2 mb-4 bg-gray-800 text-white rounded"
+          className="w-full p-2 mb-4 bg-white text-black rounded"
         />
 
         <div className="flex-1 overflow-y-auto">
