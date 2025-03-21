@@ -1,14 +1,20 @@
 import React from 'react';
 import { useLocation } from 'react-router';
+import Sidebar from '../components/courseCatalog';
 
 const ClassPage: React.FC = () => { 
-    const location = useLocation(); // returns a immutable location object contains info about current URL, including the pathname, search parameters
+    const location = useLocation();
     const school = location.state?.school || 'no school selected';
 
     return (
-        <div>
-            <h1>Welcome to the class page</h1>
-            <p>Your school: {school}</p>
+        <div className="flex h-screen">
+            <div className="flex-1 p-6">
+                <h2 className="text-2xl font-bold mb-4">{school} Requirements Page</h2>
+                <p>Add classes that you have taken below</p>
+            </div> 
+            <div className="w-64 flex-">
+                <Sidebar />
+            </div>
         </div>
     );
 }
