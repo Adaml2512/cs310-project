@@ -12,8 +12,8 @@ const HomePage: React.FC = () => {
         
         <div>
             <h1>CS Requirements Planner</h1>
-            <h2>Select your school</h2>
-            <div>
+            <h2 className="text-xl pt-5">Select your school</h2>
+            <div className="pt-5">
                 <button className="school" onClick={() => selectSchool('McCormick')}>
                 McCormick
                 </button>

@@ -12,7 +12,7 @@ class Class extends Component<ClassButtonProps> {
 
     return (
       <button
-        className="w-full px-10 py-4 text-xl bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition mb-4"
+        className="w-full text-xl bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition mb-4"
         onClick={onClick}
       >
         {name}

@@ -13,6 +13,11 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
       { name: "COMP_SCI 212", classId: "0" },
       { name: "COMP_SCI 213", classId: "1" },
       { name: "COMP_SCI 214", classId: "2" },
+      { name: "COMP_SCI 215", classId: "3" },
+      { name: "COMP_SCI 216", classId: "4" },
+      { name: "COMP_SCI 217", classId: "5" },
+      { name: "COMP_SCI 218", classId: "6" },
+      { name: "COMP_SCI 219", classId: "7" },
     ],
   };
 
@@ -27,30 +32,35 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
     );
 
     return (
-      <div className="w-64 h-screen bg-gray-900 text-white p-4 border-r border-gray-700">
+      <div className="flex-1 h-screen text-white p-6 border-l border-gray-700">
         <h2 className="text-xl font-semibold mb-4">Course Catalog</h2>
 
+        {/* Search Input */}
         <input
           type="text"
           placeholder="Search for a class..."
           value={search}
           onChange={this.handleSearch}
-          className="w-full p-2 mb-4 text-black rounded"
+          className="w-full p-2 mb-4 bg-gray-800 text-white rounded"
         />
 
-        <div className="space-y-2 pt-4">
-          {filteredCourses.length > 0 ? (
-            filteredCourses.map((course) => (
-              <Class
-                key={course.classId}
-                name={course.name}
-                classId={course.classId}
-                onClick={() => alert(`Selected ${course.name}`)}
-              />
-            ))
-          ) : (
-            <p className="text-gray-400">No results found</p>
-          )}
+        <div className="flex-1 overflow-y-auto">
+          <div className="grid grid-cols-2 gap-2 min-h-[300px]">
+            {filteredCourses.length > 0 ? (
+              filteredCourses.map((course) => (
+                <Class
+                  key={course.classId}
+                  name={course.name}
+                  classId={course.classId}
+                  onClick={() => alert(`Selected ${course.name}`)}
+                />
+              ))
+            ) : (
+              <div className="col-span-2 flex items-center justify-center text-gray-400">
+                No results found
+              </div>
+            )}
+          </div>
         </div>
       </div>
     );
