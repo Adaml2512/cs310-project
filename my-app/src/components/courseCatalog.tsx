@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Class from "./class";
 import allClasses from "../assets/courses";
 
-// Define available sections for filtering
 const sections = [
   "Mathematics",
   "Basic Sciences",
@@ -20,7 +19,6 @@ const sections = [
   "Technical Electives",
 ];
 
-// Flatten allClasses into an array with each course containing a section property
 const flattenCourses = () => {
   let courses: { name: string; courseId: string; section: string }[] = [];
   for (let section in allClasses) {
@@ -36,33 +34,38 @@ const flattenCourses = () => {
   return courses;
 };
 
+interface CourseCatalogProps {
+  addClass: (course: { courseId: string; name: string; section: string }) => void;
+}
+
 interface CourseCatalogState {
   search: string;
   selectedSection: string;
   courses: { name: string; courseId: string; section: string }[];
 }
 
-class CourseCatalog extends Component<{}, CourseCatalogState> {
+class CourseCatalog extends Component<CourseCatalogProps, CourseCatalogState> {
   state: CourseCatalogState = {
     search: "",
-    selectedSection: "", // Track selected section
-    courses: flattenCourses(), // Use the flattened courses
+    selectedSection: "",
+    courses: flattenCourses(),
   };
 
-  handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
+  search = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ search: event.target.value });
   };
 
-  handleSectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  sectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({ selectedSection: event.target.value });
   };
 
   render() {
     const { search, selectedSection, courses } = this.state;
-    const lowerSearch = search.toLowerCase();
-    const selectedSectionFiltered = selectedSection.replace(/\s+/g, '');
+    const { addClass } = this.props;
 
-    // Filter courses based on search term (matching either courseId or name) and selected section
+    const lowerSearch = search.toLowerCase();
+    const selectedSectionFiltered = selectedSection.trim();
+
     const filteredCourses = courses.filter((course) => {
       const matchesSearch =
         course.courseId.toLowerCase().includes(lowerSearch) ||
@@ -80,7 +83,7 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
           type="text"
           placeholder="Search for a class..."
           value={search}
-          onChange={this.handleSearch}
+          onChange={this.search}
           className="w-full p-2 mb-4 bg-white text-black rounded"
         />
 
@@ -91,7 +94,7 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
           <select
             id="sectionFilter"
             value={selectedSection}
-            onChange={this.handleSectionChange}
+            onChange={this.sectionChange}
             className="p-2 bg-white text-black rounded"
           >
             <option value="">All Sections</option>
@@ -104,14 +107,14 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
         </div>
 
         <div className="flex-1 overflow-y-auto">
-          <div className="grid grid-cols-2 gap-2 min-h-[300px]">
+          <div className="grid grid-cols-2 gap-2 min-h-[50px]">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (
                 <Class
-                  key={`${course.courseId}-${course.section}`}  // unique key using both courseId and section
+                  key={`${course.courseId}-${course.section}`}
                   courseId={course.courseId}
                   name={course.name}
-                  onClick={() => alert(`Selected ${course.courseId}`)}
+                  onClick={() => addClass(course)}
                 />
               ))
             ) : (
