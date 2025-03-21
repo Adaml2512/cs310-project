@@ -64,7 +64,7 @@ class CourseCatalog extends Component<CourseCatalogProps, CourseCatalogState> {
     const { addClass } = this.props;
 
     const lowerSearch = search.toLowerCase();
-    const selectedSectionFiltered = selectedSection.trim();
+    const selectedSectionFiltered = selectedSection.replace(/\s+/g, '');
 
     const filteredCourses = courses.filter((course) => {
       const matchesSearch =
