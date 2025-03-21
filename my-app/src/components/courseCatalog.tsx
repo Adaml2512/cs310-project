@@ -1,35 +1,75 @@
 import React, { Component } from "react";
 import Class from "./class";
+import allClasses from "../assets/courses";
+
+// Define available sections for filtering
+const sections = [
+  "Mathematics",
+  "Basic Sciences",
+  "Engineering Analysis",
+  "DTC",
+  "Theme",
+  "Core Classes",
+  "Theory",
+  "Systems",
+  "Artificial Intelligence",
+  "Interfaces",
+  "Software Development and Programming Languages",
+  "Project Courses",
+  "Advanced Electives",
+  "Technical Electives",
+];
+
+// Flatten allClasses into an array with each course containing a section property
+const flattenCourses = () => {
+  let courses: { name: string; courseId: string; section: string }[] = [];
+  for (let section in allClasses) {
+    const sectionCourses = allClasses[section as keyof typeof allClasses];
+    sectionCourses.forEach((course: { courseId: string; name: string }) => {
+      courses.push({
+        name: course.name,
+        courseId: course.courseId,
+        section,
+      });
+    });
+  }
+  return courses;
+};
 
 interface CourseCatalogState {
   search: string;
-  courses: { name: string; classId: string }[];
+  selectedSection: string;
+  courses: { name: string; courseId: string; section: string }[];
 }
 
 class CourseCatalog extends Component<{}, CourseCatalogState> {
   state: CourseCatalogState = {
     search: "",
-    courses: [
-      { name: "COMP_SCI 212", classId: "0" },
-      { name: "COMP_SCI 213", classId: "1" },
-      { name: "COMP_SCI 214", classId: "2" },
-      { name: "COMP_SCI 215", classId: "3" },
-      { name: "COMP_SCI 216", classId: "4" },
-      { name: "COMP_SCI 217", classId: "5" },
-      { name: "COMP_SCI 218", classId: "6" },
-      { name: "COMP_SCI 219", classId: "7" },
-    ],
+    selectedSection: "", // Track selected section
+    courses: flattenCourses(), // Use the flattened courses
   };
 
   handleSearch = (event: React.ChangeEvent<HTMLInputElement>) => {
     this.setState({ search: event.target.value });
   };
 
+  handleSectionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    this.setState({ selectedSection: event.target.value });
+  };
+
   render() {
-    const { search, courses } = this.state;
-    const filteredCourses = courses.filter((course) =>
-      course.name.toLowerCase().includes(search.toLowerCase())
-    );
+    const { search, selectedSection, courses } = this.state;
+    const lowerSearch = search.toLowerCase();
+    const selectedSectionFiltered = selectedSection.replace(/\s+/g, '');
+
+    // Filter courses based on search term (matching either courseId or name) and selected section
+    const filteredCourses = courses.filter((course) => {
+      const matchesSearch =
+        course.courseId.toLowerCase().includes(lowerSearch) ||
+        course.name.toLowerCase().includes(lowerSearch);
+      const matchesSection = selectedSectionFiltered ? course.section === selectedSectionFiltered : true;
+      return matchesSearch && matchesSection;
+    });
 
     return (
       <div className="flex-1 h-screen text-white p-6 border-l border-gray-700">
@@ -44,15 +84,34 @@ class CourseCatalog extends Component<{}, CourseCatalogState> {
           className="w-full p-2 mb-4 bg-white text-black rounded"
         />
 
+        <div className="mb-4">
+          <label htmlFor="sectionFilter" className="mr-2">
+            Filter by Section:
+          </label>
+          <select
+            id="sectionFilter"
+            value={selectedSection}
+            onChange={this.handleSectionChange}
+            className="p-2 bg-white text-black rounded"
+          >
+            <option value="">All Sections</option>
+            {sections.map((section) => (
+              <option key={section} value={section}>
+                {section}
+              </option>
+            ))}
+          </select>
+        </div>
+
         <div className="flex-1 overflow-y-auto">
           <div className="grid grid-cols-2 gap-2 min-h-[300px]">
             {filteredCourses.length > 0 ? (
               filteredCourses.map((course) => (
                 <Class
-                  key={course.classId}
+                  key={`${course.courseId}-${course.section}`}  // unique key using both courseId and section
+                  courseId={course.courseId}
                   name={course.name}
-                  classId={course.classId}
-                  onClick={() => alert(`Selected ${course.name}`)}
+                  onClick={() => alert(`Selected ${course.courseId}`)}
                 />
               ))
             ) : (

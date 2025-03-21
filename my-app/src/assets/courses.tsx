@@ -1,7 +1,7 @@
 // Mathematics (4 units)
 const Mathematics = [
 
-    { courseId : "MATH 228-1", name: "Multivariable Differential Calculus for Engineering" },
+    { courseId : "MATH 220-1", name: "Single-Variable Differential Calculus" },
     { courseId : "MATH 220-2", name: "Single-Variable Integral Calculus" },
     { courseId : "MATH 228-1", name: "Multivariable Differential Calculus for Engineering" },
     { courseId : "COMP_SCI 212-0", name: "Math Foundations of CS Part 1: Discrete Math for CS" }
@@ -68,14 +68,19 @@ const CoreClasses = [
 
 ]
 
-// Breadth Coureses (5 units total - 1 from each)
-const BreadthClasses = [
+// Breadth Courses (5 units total - 1 from each below)
 
-    // Theory
+// Theory (1 unit)
+const Theory = [
+
     { courseId: "COMP_SCI 335-0", name: "Introduction to the Theory of Computation" },
-    { courseId: "COMP_SCI 336-0", name: "Design & Analysis of Algorithms" },
+    { courseId: "COMP_SCI 336-0", name: "Design & Analysis of Algorithms" }
 
-    // Systems
+]
+
+// Systems (1 unit)
+const Systems = [
+
     { courseId: "COMP_SCI 322-0", name: "Compiler Construction" },
     { courseId: "COMP_SCI 339-0", name: "Introduction to Database Systems" },
     { courseId: "COMP_SCI 340-0", name: "Introduction to Networking" },
@@ -94,7 +99,10 @@ const BreadthClasses = [
     { courseId: "COMP_ENG 358-0", name: "Introduction to Parallel Computing" },
     { courseId: "COMP_ENG 361-0", name: "Computer Architecture I" },
 
-    // Artificial Intelligence
+]
+
+// Artificial Intelligence Classes (1 unit)
+const ArtificialIntelligence = [
     { courseId: "COMP_SCI 325-0", name: "Artificial Intelligence Programming" },
     { courseId: "COMP_SCI 337-0", name: "Natural Language Processing: Classical Approaches" },
     { courseId: "COMP_SCI 344-0", name: "Design of Computer Problem Solvers" },
@@ -102,9 +110,12 @@ const BreadthClasses = [
     { courseId: "COMP_SCI 349-0", name: "Machine Learning" },
     { courseId: "COMP_SCI 371-0", name: "Knowledge Representation and Reasoning" },
     { courseId: "COMP_SCI 372-0", name: "Designing and Constructing Models with Multi-Agent Languages" },
-    { courseId: "COMP_SCI 449-0", name: "Deep Learning" },
+    { courseId: "COMP_SCI 449-0", name: "Deep Learning" }, 
+]
 
-    // Interfaces
+// Interfaces (1 unit)
+const Interfaces = [
+
     { courseId: "COMP_SCI 313-0", name: "Tangible Interaction Design and Learning" },
     { courseId: "COMP_SCI 315-0", name: "Design, Technology, and Research" },
     { courseId: "COMP_SCI 329-0", name: "HCI Studio" },
@@ -118,15 +129,19 @@ const BreadthClasses = [
     { courseId: "COMP_SCI 376-0", name: "Computer Game Design and Development" },
     { courseId: "COMP_SCI 377-0", name: "Game Design Studio" },
     { courseId: "ELEC_ENG 332-0", name: "Introduction to Computer Vision" },
+]
 
-    // Software Development and Programming Languages
+// Software Development And Programming Languages (1 unit)
+const SoftwareDevelopmentandProgrammingLanguages = [
+
     { courseId: "COMP_SCI 310-0", name: "Scalable Software Architectures" },
     { courseId: "COMP_SCI 321-0", name: "Programming Languages" },
     { courseId: "COMP_SCI 338-0", name: "Practicum in Intelligent Information Systems" },
     { courseId: "COMP_SCI 377-0", name: "Game Design Studio" },
     { courseId: "COMP_SCI 392-0", name: "Rapid Prototyping for Software Innovation" },
     { courseId: "COMP_SCI 393-0", name: "Software Construction" },
-    { courseId: "COMP_SCI 394-0", name: "Agile Software Development" },
+    { courseId: "COMP_SCI 394-0", name: "Agile Software Development" }
+    
 ]
 
 // Project Courses (2 units)
@@ -177,13 +192,16 @@ const ProjectCourses = [
 
 // Advanced Electives (3 units)
 const AdvancedElectives = [
+
     { courseId: "ADVANCED_ELEC 1", name: "Advanced Elective 1" },
     { courseId: "ADVANCED_ELEC 2", name: "Advanced Elective 2" }, 
     { courseId: "ADVANCED_ELEC 3", name: "Advanced Elective 3" } 
+
 ]
 
 // Technical Electives (6 units)
 const TechnicalElectives = [
+    
     { courseId: "COMP_ENG 303-0", name: "Advanced Digital Design" },
     { courseId: "COMP_ENG 329-0", name: "The Art of Multicore Concurrent Programming" },
     { courseId: "COMP_ENG 334-0", name: "Fundamentals of Blockchains and Decentralization" },
@@ -212,3 +230,6 @@ const TechnicalElectives = [
     { courseId: "ELEC_ENG 433-0", name: "Statistical Pattern Recognition" },
     { courseId: "ELEC_ENG 435-0", name: "Deep Learning: Foundations, Applications, and Algorithms" }
 ];
+
+const allClasses = { Mathematics, BasicSciences, EngineeringAnalysis, DTC, Theme, CoreClasses, Theory, Systems, ArtificialIntelligence, Interfaces, SoftwareDevelopmentandProgrammingLanguages, ProjectCourses, AdvancedElectives, TechnicalElectives };
+export default allClasses;
