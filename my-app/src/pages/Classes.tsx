@@ -15,7 +15,7 @@ const ClassPage: React.FC = () => {
     const addClass = (newClass: { courseId: string; name: string; section: string }) => {
         setSelectedClasses((prevClasses) => {
             if (prevClasses.some((c) => c.courseId === newClass.courseId)) {
-            return prevClasses; // Prevent duplicate addition
+                return prevClasses; // Prevent duplicate addition
             }
             console.log(selectedClasses);
             return [...prevClasses, newClass];
@@ -34,7 +34,7 @@ const ClassPage: React.FC = () => {
           requirement: course.section, // Assuming section represents the requirement
         }));
 
-        console.log(courses);
+        console.log(JSON.stringify({ data: courses }));
       
         // try {
         //     const response = await fetch("YOUR_API_URL_HERE", {
@@ -55,7 +55,91 @@ const ClassPage: React.FC = () => {
         //     alert("Error submitting classes. Please try again.");
         // }
       };
-      
+     
+      const handleEmail = async () => {
+        const email = prompt("Please enter your email:");
+        
+        if (!email) {
+            alert("Email is required");
+            return;
+        }
+    
+        const courses = selectedClasses.map((course) => ({
+            course_id: course.courseId,
+            course_name: course.name,
+            requirement: course.section, // Assuming section represents the requirement
+        }));
+
+        if (courses.length === 0) {
+            alert("No classes selected");
+            return;
+        }
+    
+        const emailData = {
+            email,
+            data: courses,
+        };
+    
+        console.log(JSON.stringify(emailData));
+    
+        // try {
+        //     const response = await fetch("YOUR_API_URL_HERE", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(emailData),
+        //     });
+    
+        //     if (!response.ok) {
+        //         throw new Error("Failed to send email");
+        //     }
+        //     alert("Email sent successfully!");
+    
+        // } catch (error) {
+        //     console.error("Error sending email:", error);
+        //     alert("Error sending email. Please try again.");
+        // }
+    };
+
+    const handleChat = async () => {
+        const userInput = prompt("Enter your message:");
+    
+        const courses = selectedClasses.map((course) => ({
+            course_id: course.courseId,
+            course_name: course.name,
+            requirement: course.section, // Assuming section represents the requirement
+        }));
+    
+        const chatData = {
+            message: userInput,
+            data: courses,
+        };
+    
+        console.log(JSON.stringify(chatData));
+    
+        // try {
+        //     const response = await fetch("YOUR_API_URL_HERE", {
+        //         method: "POST",
+        //         headers: {
+        //             "Content-Type": "application/json",
+        //         },
+        //         body: JSON.stringify(chatData),
+        //     });
+    
+        //     if (!response.ok) {
+        //         throw new Error("Failed to send message");
+        //     }
+    
+        //     const responseData = await response.json();
+        //     alert(`Chat response: ${responseData.reply}`);
+    
+        // } catch (error) {
+        //     console.error("Error sending message:", error);
+        //     alert("Error sending message. Please try again.");
+        // }
+    };    
+    
   return (
     <div className="flex w-screen w-full">
       <div className="w-1/3 p-6">
@@ -72,10 +156,24 @@ const ClassPage: React.FC = () => {
           ) : (
             <p className="text-gray-400">No classes added yet.</p>
           )}
+        </div>
+        <div className="pt-4">
             <button className="pt-6" onClick={handleSubmit}>
                 Submit
+            </button> 
+        </div>
+        <div className="py-4">
+            <button onClick={handleEmail}>
+                Email Requirements
             </button>
-        </div>  
+        </div>
+
+        <div>
+            <button onClick={handleChat}>
+                Chat
+            </button>
+        </div>
+         
       </div>
 
       <div className="flex w-1/2">
